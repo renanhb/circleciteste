@@ -1,13 +1,33 @@
 apply plugin: 'com.android.application'
+ext {
+    versionCode = getBuildNumber()
+}
+
+static def getBuildNumber() {
+    def BUILD_NUMBER = System.getenv('CIRCLE_BUILD_NUM')
+    def versionNumber = 0
+    if (BUILD_NUMBER != null) {
+        versionNumber = Integer.parseInt(BUILD_NUMBER)
+    }
+    return versionNumber
+}
 
 android {
+    signingConfigs {
+        config {
+            keyAlias System.getenv("KEY_ALIAS")
+            keyPassword System.getenv("KEY_PASSWORD")
+            storeFile file('keystore.jks')
+            storePassword System.getenv("STORE_PASSWORD")
+        }
+    }
     compileSdkVersion 27
     defaultConfig {
         applicationId "com.example.renanbolonha.projetocircleci"
         minSdkVersion 19
         targetSdkVersion 27
-        versionCode 1
-        versionName "1.0"
+        versionCode versionCode
+        versionName System.getenv('CIRCLE_BUILD_NUM')
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
@@ -19,7 +39,7 @@ android {
 }
 
 dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation 'com.android.support:appcompat-v7:27.1.1'
     implementation 'com.android.support.constraint:constraint-layout:1.1.2'
     testImplementation 'junit:junit:4.12'
