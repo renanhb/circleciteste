@@ -13,7 +13,6 @@ static def getBuildNumber() {
     return versionNumber
 }
 
-
 /*static def getVersionName() {
     def versionName = '01.01.01.1b'
     return versionName

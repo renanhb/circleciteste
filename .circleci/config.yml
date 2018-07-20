@@ -80,10 +80,11 @@ workflows:
   build_beta_and_release:
     jobs:
       - buildDebug
-      - hold:
-          type: approval
-          requires:
-            - buildDebug
-      - buildRelease:
-          requires:
-            - hold
+      #- hold:
+          #type: approval
+          #requires:
+            #- buildDebug
+            - buildRelease
+      #- buildRelease:
+          #requires:
+            #- hold
