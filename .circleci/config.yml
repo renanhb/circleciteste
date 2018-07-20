@@ -116,5 +116,5 @@ workflows:
   build_beta_and_release:
     jobs:
       - buildDebug
-      #- buildBeta
+      - buildBeta
       - buildRelease
