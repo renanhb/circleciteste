@@ -28,7 +28,7 @@ jobs:
          command: sudo chmod +x ./gradlew
 
       - run: ./gradlew dependencies
-        name: Dependencies
+          name: Dependencies
 
       - save_cache:
           paths:
@@ -67,7 +67,7 @@ jobs:
            command: sudo chmod +x ./gradlew
 
         - run: ./gradlew dependencies
-          name: Dependencies
+            name: Dependencies
 
         - save_cache:
             paths:
