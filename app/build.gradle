@@ -1,6 +1,7 @@
 apply plugin: 'com.android.application'
 ext {
     versionCode = getBuildNumber()
+    versionName = getVersionName()
 }
 
 static def getBuildNumber() {
@@ -10,6 +11,11 @@ static def getBuildNumber() {
         versionNumber = Integer.parseInt(BUILD_NUMBER)
     }
     return versionNumber
+}
+
+static def getVersionName() {
+    def versionName = '01.01.01.1b'
+    return versionName
 }
 
 android {
@@ -27,7 +33,8 @@ android {
         minSdkVersion 19
         targetSdkVersion 27
         versionCode versionCode
-        versionName System.getenv('CIRCLE_BUILD_NUM')
+        //versionName System.getenv('CIRCLE_BUILD_NUM')
+        versionName versionName
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
