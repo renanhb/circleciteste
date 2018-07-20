@@ -71,16 +71,15 @@ jobs:
         - store_artifacts:
             path: app/build/outputs/apk/release
             destination: artifact-file-release
-
 workflows:
   version: 2
-    buildbetaAndRelease:
-        jobs:
+  build_beta_and_release:
+    jobs:
+      - buildDebug
+      - hold:
+          type: approval
+          requires:
             - buildDebug
-            - hold:
-                type: approval
-                requires:
-                    - buildDebug
-            - buildRelease:
-                  requires:
-                    - hold
+      - buildRelease:
+          requires:
+            - hold
