@@ -70,7 +70,7 @@ jobs:
 
                   - run:
                       name: Create application beta
-                      command: ./gradlew app:assembleRelease
+                      command: ./gradlew app:assembleBeta
 
                   - store_artifacts:
                       path: app/build/outputs/apk/release
