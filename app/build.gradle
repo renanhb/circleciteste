@@ -42,6 +42,9 @@ android {
     buildTypes {
         beta {
             versionNameSuffix 'b'
+            signingConfig signingConfigs.config
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
         debug {
             //versionNameSuffix 'b'
