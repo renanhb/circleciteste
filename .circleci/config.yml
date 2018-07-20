@@ -77,7 +77,7 @@ workflows:
       - hold:
           type: approval
           requires:
-              - buildBeta
+            - buildBeta
       - buildRelease:
           requires:
-              - hold
+            - hold
