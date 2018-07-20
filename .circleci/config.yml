@@ -78,6 +78,6 @@ workflows:
           type: approval
           requires:
               - buildBeta
-      - buildRelease
+      - buildRelease:
           requires:
               - hold
