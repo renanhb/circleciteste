@@ -74,4 +74,10 @@ workflows:
   build_beta_and_release:
     jobs:
       - buildBeta
+      - hold:
+          type: approval
+          requires:
+              - buildBeta
       - buildRelease
+          requires:
+              - hold
