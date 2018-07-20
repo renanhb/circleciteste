@@ -40,41 +40,41 @@ jobs:
           path: app/build/outputs/apk/debug
           destination: artifact-file-debug
 
-          buildBeta:
-                docker:
-                  - image: circleci/android:api-25-alpha
-                environment:
-                  # Customize the JVM maximum heap limit
-                  JVM_OPTS: -Xmx3200m
-                  TERM: dumb
+  buildBeta:
+    docker:
+      - image: circleci/android:api-25-alpha
+    environment:
+      # Customize the JVM maximum heap limit
+      JVM_OPTS: -Xmx3200m
+      TERM: dumb
 
-                steps:
-                  - checkout
+    steps:
+      - checkout
 
-                  # Download and cache dependencies
-                  - restore_cache:
-                      keys:
-                      - v1-dependencies-{{ checksum "build.gradle" }}-{{ checksum "app/build.gradle" }}
-                      # fallback to using the latest cache if no exact match is found
-                      - v1-dependencies-
-                  - run:
-                     name: Chmod permissions #if permission for Gradlew Dependencies fail, use this.
-                     command: sudo chmod +x ./gradlew
-                  - run:
-                      name: Verify dependencies
-                      command: ./gradlew dependencies
-                  - save_cache:
-                      paths:
-                        - ~/.gradle
-                      key: v1-dependencies-{{ checksum "build.gradle" }}-{{ checksum "app/build.gradle" }}
+      # Download and cache dependencies
+      - restore_cache:
+          keys:
+          - v1-dependencies-{{ checksum "build.gradle" }}-{{ checksum "app/build.gradle" }}
+          # fallback to using the latest cache if no exact match is found
+          - v1-dependencies-
+      - run:
+         name: Chmod permissions #if permission for Gradlew Dependencies fail, use this.
+         command: sudo chmod +x ./gradlew
+      - run:
+          name: Verify dependencies
+          command: ./gradlew dependencies
+      - save_cache:
+          paths:
+            - ~/.gradle
+          key: v1-dependencies-{{ checksum "build.gradle" }}-{{ checksum "app/build.gradle" }}
 
-                  - run:
-                      name: Create application beta
-                      command: ./gradlew app:assembleBeta
+      - run:
+          name: Create application beta
+          command: ./gradlew app:assembleBeta
 
-                  - store_artifacts:
-                      path: app/build/outputs/apk/release
-                      destination: artifact-file-beta
+      - store_artifacts:
+          path: app/build/outputs/apk/release
+          destination: artifact-file-beta
 
   buildRelease:
       docker:
