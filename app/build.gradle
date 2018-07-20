@@ -1,6 +1,6 @@
 apply plugin: 'com.android.application'
 ext {
-    versionCode = getBuildNumber()
+    //versionCode = getBuildNumber()
     //versionName = getVersionName()
 }
 
@@ -13,14 +13,13 @@ static def getBuildNumber() {
     return versionNumber
 }
 
-/*static def getVersionName() {
-    def versionName = '01.01.01.1b'
-    return versionName
-}*/
-
-def versionMajor = 1
+/*def versionMajor = 1
 def versionMinor = 9
-def versionPatch = 29
+def versionPatch = 29*/
+
+ext.versionMajor = 1
+ext.versionMinor = 10
+ext.versionPatch = 30
 
 android {
     signingConfigs {
@@ -36,8 +35,8 @@ android {
         applicationId "com.example.renanbolonha.projetocircleci"
         minSdkVersion 19
         targetSdkVersion 27
-        versionCode ((versionMajor * 100000) + (versionMinor * 1000) + versionPatch)
-        versionName "0${versionMajor}.${versionMinor}.$versionPatch.${System.getenv('CIRCLE_BUILD_NUM')}"
+        versionCode generateVersionCode()
+        versionName generateVersionName()
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
@@ -45,7 +44,7 @@ android {
             versionNameSuffix 'b'
         }
         debug {
-            versionNameSuffix 'b'
+            //versionNameSuffix 'b'
         }
         release {
             signingConfig signingConfigs.config
@@ -53,6 +52,23 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+}
+
+private Integer generateVersionCode() {
+    return (ext.versionMajor * 100000) + (ext.versionMinor * 1000) + ext.versionPatch
+}
+
+private String generateVersionName() {
+    return "0${ext.versionMajor}.${ext.versionMinor}.${ext.versionPatch}." + generateBuilderNumber()
+}
+
+private String generateBuilderNumber() {
+    String buildNumber = System.getenv('CIRCLE_BUILD_NUM')
+    int versionNumber = 0
+    if(buildNumber != null) {
+        versionNumber = Integer.parseInt(buildNumber)
+    }
+    return versionNumber
 }
 
 dependencies {
