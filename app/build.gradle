@@ -1,25 +1,10 @@
 apply plugin: 'com.android.application'
+
 ext {
-    //versionCode = getBuildNumber()
-    //versionName = getVersionName()
+    versionMajor = 1
+    versionMinor = 9
+    versionPatch = 29
 }
-
-static def getBuildNumber() {
-    def BUILD_NUMBER = System.getenv('CIRCLE_BUILD_NUM')
-    def versionNumber = 0
-    if (BUILD_NUMBER != null) {
-        versionNumber = Integer.parseInt(BUILD_NUMBER)
-    }
-    return versionNumber
-}
-
-/*def versionMajor = 1
-def versionMinor = 9
-def versionPatch = 29*/
-
-ext.versionMajor = 1
-ext.versionMinor = 10
-ext.versionPatch = 30
 
 android {
     signingConfigs {
@@ -62,7 +47,7 @@ private Integer generateVersionCode() {
 }
 
 private String generateVersionName() {
-    return "0${ext.versionMajor}.${ext.versionMinor}.${ext.versionPatch}." + generateBuilderNumber()
+    return "${ext.versionMajor}.${ext.versionMinor}.${ext.versionPatch}." + generateBuilderNumber()
 }
 
 private String generateBuilderNumber() {
