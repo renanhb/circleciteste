@@ -77,6 +77,6 @@ workflows:
 deployment:
   release:
     tag: /release-.*/
-    #owner: circleci #owner is optional
+    owner: circleci #owner is optional
     commands:
       - ./deploy_master.sh
