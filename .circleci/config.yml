@@ -81,9 +81,3 @@ workflows:
       - buildRelease:
           requires:
             - hold
-          deployment:
-            release:
-              tag: /release-.*/
-              #owner: circleci #owner is optional
-              commands:
-                - ./deploy_master.sh
