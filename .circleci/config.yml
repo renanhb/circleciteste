@@ -1,8 +1,77 @@
+# Java Gradle CircleCI 2.0 configuration file
+#
+# Check https://circleci.com/docs/2.0/language-java/ for more details
+#
+version: 2
+jobs:
+  buildBeta:
+    steps:
+      - checkout
+      # Download and cache dependencies
+      - restore_cache:
+          keys:
+          - v1-dependencies-{{ checksum "build.gradle" }}-{{ checksum "app/build.gradle" }}
+          # fallback to using the latest cache if no exact match is found
+          - v1-dependencies-
+      - run:
+         name: Chmod permissions #if permission for Gradlew Dependencies fail, use this.
+         command: sudo chmod +x ./gradlew
+      - run:
+          name: Verify dependencies
+          command: ./gradlew dependencies
+      - save_cache:
+          paths:
+            - ~/.gradle
+          key: v1-dependencies-{{ checksum "build.gradle" }}-{{ checksum "app/build.gradle" }}
+      - run:
+          name: Create application beta $CIRCLE_TAG
+          command: ./gradlew app:assembleBeta
+      - store_artifacts:
+          path: app/build/outputs/apk/beta
+          destination: artifact-file-beta
+
+  buildRelease:
+      steps:
+        - checkout
+        # Download and cache dependencies
+        - restore_cache:
+            keys:
+            - v1-dependencies-{{ checksum "build.gradle" }}-{{ checksum "app/build.gradle" }}
+            # fallback to using the latest cache if no exact match is found
+            - v1-dependencies-
+        - run:
+           name: Chmod permissions #if permission for Gradlew Dependencies fail, use this.
+           command: sudo chmod +x ./gradlew
+        - run:
+            name: Verify dependencies
+            command: ./gradlew dependencies
+        - save_cache:
+            paths:
+              - ~/.gradle
+            key: v1-dependencies-{{ checksum "build.gradle" }}-{{ checksum "app/build.gradle" }}
+        - run:
+            name: Create application release
+            command: ./gradlew app:assembleRelease
+        - store_artifacts:
+            path: app/build/outputs/apk/release
+            destination: artifact-file-release
+workflows:
+  version: 2
+  build_beta_and_release:
+    jobs:
+      - buildBeta
+      - hold:
+          type: approval
+          requires:
+            - buildBeta
+      - buildRelease:
+          requires:
+            - hold
 machine:
   node:
     version: 6.2.0
    environment:
-      PROJECT_NAME: 'CircleCITest'
+      PROJECT_NAME: CircleCiTest
 dependencies:
   pre:
     - go get github.com/aktau/github-release
