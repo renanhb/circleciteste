@@ -3,25 +3,24 @@
 # Check https://circleci.com/docs/2.0/language-java/ for more details
 #
 version: 2
+machine:
+  node:
+    version: 6.2.0
+   environment:
+      PROJECT_NAME: "projeto-circle-ci"
+dependencies:
+  pre:
+    - go get github.com/aktau/github-release
+    - npm install github-release-notes -g
+deployment:
+  release:
+    tag: /v[0-9]+(\.[0-9]+)*/
+    commands:
+      - zip -r $CIRCLE_ARTIFACTS/$PROJECT_NAME-$CIRCLE_TAG.zip dist/*
+      - git config user.name $CIRCLE_PROJECT_USERNAME
+      - gren --override --data-source=commits
+      - github-release upload --user $CIRCLE_PROJECT_USERNAME --repo $CIRCLE_PROJECT_REPONAME --tag $CIRCLE_TAG --name $CIRCLE_PROJECT_REPONAME"."$CIRCLE_TAG"-build-"$CIRCLE_BUILD_NUM".zip" --file $CIRCLE_ARTIFACTS/$PROJECT_NAME-$CIRCLE_TAG.zip
 jobs:
-  machine:
-        node:
-          version: 6.2.0
-         environment:
-            PROJECT_NAME: "projeto-circle-ci"
-      dependencies:
-        pre:
-          - go get github.com/aktau/github-release
-          - npm install github-release-notes -g
-      deployment:
-        release:
-          tag: /v[0-9]+(\.[0-9]+)*/
-          commands:
-            - zip -r $CIRCLE_ARTIFACTS/$PROJECT_NAME-$CIRCLE_TAG.zip dist/*
-            - git config user.name $CIRCLE_PROJECT_USERNAME
-            - gren --override --data-source=commits
-            - github-release upload --user $CIRCLE_PROJECT_USERNAME --repo $CIRCLE_PROJECT_REPONAME --tag $CIRCLE_TAG --name $CIRCLE_PROJECT_REPONAME"."$CIRCLE_TAG"-build-"$CIRCLE_BUILD_NUM".zip" --file $CIRCLE_ARTIFACTS/$PROJECT_NAME-$CIRCLE_TAG.zip
-
   buildBeta:
     steps:
       - checkout
