@@ -71,11 +71,13 @@ jobs:
             destination: artifact-file-release
 workflows:
   version: 2
-  buildRelease:
+  build_beta_and_release:
     jobs:
-      - build:
-          filters:
-            branches:
-              ignore: /.*/
-	    tags:
-	      only: /^v.*/
+      - buildBeta
+      - hold:
+          type: approval
+          requires:
+            - buildBeta
+      - buildRelease:
+          requires:
+            - hold
