@@ -71,7 +71,7 @@ machine:
   node:
     version: 6.2.0
    environment:
-      PROJECT_NAME: CircleCiTest
+      PROJECT_NAME: "projeto-circle-ci"
 dependencies:
   pre:
     - go get github.com/aktau/github-release
