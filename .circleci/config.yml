@@ -71,9 +71,11 @@ jobs:
             destination: artifact-file-release
 workflows:
   version: 2
-  build_beta_and_release:
+  buildRelease:
     jobs:
-      - buildRelease:
-        filters:
-          tags:
-            only: /.*/
+      - build:
+          filters:
+            branches:
+              ignore: /.*/
+	    tags:
+	      only: /^v.*/
