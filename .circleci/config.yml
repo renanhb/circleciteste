@@ -74,9 +74,6 @@ workflows:
   build_beta_and_release:
     jobs:
       - buildRelease
-deployment:
-  release:
-    tag: /release-.*/
-    owner: circleci #owner is optional
-    commands:
-      - ./deploy_master.sh
+        filters:
+          tags:
+            only: /.*/
