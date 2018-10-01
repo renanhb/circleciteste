@@ -40,7 +40,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
         buttonSendEmail = findViewById(R.id.button_send_email);
-        buttonSendEmail.setOnClickListener(new View.OnClickListener() {
+        /*buttonSendEmail.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(Intent.ACTION_SEND);
@@ -50,15 +50,28 @@ public class MainActivity extends AppCompatActivity {
                 intent.setType("message/rfc822");
                 startActivity(Intent.createChooser(intent, "Escolha o App de e-mail"));
             }
+        });*/
+        buttonSendEmail.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
         });
 
 
         // TODO: 06/08/2018 - AAAAAAAAAA 
         // TODO: 06/08/2018 - BBBBBBBBBB aasda
-        corrigidoBug1();
+        corrigidoBug2();
     }
 
     private void corrigidoBug1() {
+        String a = "a";
+        if(a.equals("a")) {
+
+        }
+    }
+
+    private void corrigidoBug2() {
         Toast.makeText(getApplicationContext(), "BUG REMOVIDO", Toast.LENGTH_SHORT).show();
 
     }
