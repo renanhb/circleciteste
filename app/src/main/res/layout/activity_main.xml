@@ -9,27 +9,35 @@
     tools:context=".MainActivity">
 
     <TextView
-        android:text="VERSION CODE"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:text="VERSION CODE" />
 
     <TextView
         android:id="@+id/text_version_code"
-        android:text="VERSION 0"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:text="VERSION 0" />
 
     <TextView
-        android:layout_marginTop="16dp"
-        android:text="VERSION NAME"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="VERSION NAME" />
 
     <TextView
         android:id="@+id/text_version_name"
-        android:text="VERSION X"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:text="VERSION X" />
 
+
+    <Button
+        android:id="@+id/button_send_email"
+        style="?attr/buttonBarButtonStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="Send Email" />
 
 </LinearLayout>

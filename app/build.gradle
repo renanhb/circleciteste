@@ -53,7 +53,7 @@ private String generateVersionName() {
 private String generateBuilderNumber() {
     String buildNumber = System.getenv('CIRCLE_BUILD_NUM')
     int versionNumber = 0
-    if(buildNumber != null) {
+    if (buildNumber != null) {
         versionNumber = Integer.parseInt(buildNumber)
     }
     return versionNumber
@@ -66,4 +66,5 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+    implementation 'com.android.support:recyclerview-v7:27.1.1'
 }
