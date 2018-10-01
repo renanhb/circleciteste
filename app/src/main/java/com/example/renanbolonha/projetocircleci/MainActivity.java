@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -54,6 +55,11 @@ public class MainActivity extends AppCompatActivity {
 
         // TODO: 06/08/2018 - AAAAAAAAAA 
         // TODO: 06/08/2018 - BBBBBBBBBB aasda
+        corrigidoBug1();
+    }
+
+    private void corrigidoBug1() {
+        Toast.makeText(getApplicationContext(), "BUG REMOVIDO", Toast.LENGTH_SHORT).show();
 
     }
 }
